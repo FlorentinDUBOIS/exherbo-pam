@@ -2,14 +2,18 @@ auth        required    pam_tally.so file=/var/log/faillog onerr=succeed
 auth        required    pam_shells.so
 auth        required    pam_nologin.so
 auth        include     system-auth
+auth        required    pam_deny.so
 
 account     required    pam_access.so
 account     required    pam_nologin.so
 account     include     system-auth
 account     required    pam_tally.so file=/var/log/faillog onerr=succeed
+account     required    pam_permit.so
 
 password    include     system-auth
+password    required    pam_deny.so
 
+session     optional    pam_keyinit.so revoke
 session     optional    pam_loginuid.so
 session     include     system-auth
 session     required    pam_env.so
